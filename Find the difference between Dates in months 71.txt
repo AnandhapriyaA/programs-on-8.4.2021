@@ -9,7 +9,7 @@ public class mains extends UserMainCode {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("enter date1");
 		String date1=scan.nextLine();
-		//System.out.println("enter date2");
+		System.out.println("enter date2");
 		String date2=scan.nextLine();
 		getMonthDifference(date1,date2);
 		scan.close();
