@@ -1,0 +1,31 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.Scanner;
+public class mains extends UserMainCode {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+	    System.out.println("enter length");
+		int len=scan.nextInt();
+		System.out.println("enter arraylist");
+		String[] array=new String[len];
+		for(int i=0;i<len;i++) {
+			array[i]=scan.nextLine();
+		}	
+		System.out.println("enter size");
+		int size=scan.nextInt();
+		removeElements(array,size);
+		scan.close();
+	}
+}
+public class UserMainCode {
+static int removeElements(String[] array, int size) {
+		ArrayList<String> list = new ArrayList<>();
+		for (int i = 0; i < array.length; i++) {
+			if (array[i].length() != size) {
+				list.add(array[i]);
+			}
+		}
+		System.out.println(list.size());
+		return list.size();
+	}
+}
