@@ -1,0 +1,59 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.Scanner;
+public class mains extends UserMainCode {
+	public static void main(String[] args) throws ParseException {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("enter length");
+		int len = scan.nextInt();
+		System.out.println("enter hashmap");
+		HashMap<Integer, String> map1 = new HashMap<>();
+		HashMap<Integer, Integer> map2 = new HashMap<>();
+		for (int i = 0; i < len; i++) {
+			int key = scan.nextInt();
+			String dob = scan.next();
+			int salary = scan.nextInt();
+			map1.put(key, dob);
+			map2.put(key, salary);
+		}
+		calculateRevisedSalary(map1, map2);
+		scan.close();
+	}
+}
+public class UserMainCode {
+	static TreeMap<Integer, Integer> calculateRevisedSalary(HashMap<Integer, String> map1,
+			HashMap<Integer, Integer> map2) throws ParseException {
+		TreeMap<Integer, Integer> tree = new TreeMap<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+		for (Entry<Integer, String> m : map1.entrySet()) {
+			for (Entry<Integer, Integer> n : map2.entrySet()) {
+				Date parse = sdf.parse(m.getValue());
+				Calendar c = Calendar.getInstance();
+				c.setTime(parse);
+				int year = c.get(Calendar.YEAR);
+				int age = 2014 - year;
+				if (n.getValue() > 5000) {
+					if (age >= 25 && age <= 30) {
+						Integer bonus = (n.getValue() / 100) * 20;
+						tree.put(n.getKey(), (n.getValue() + bonus));
+					} else if (age >= 31 && age <= 60) {
+						Integer bonus = (n.getValue() / 100) * 30;
+						tree.put(n.getKey(), (n.getValue() + bonus));
+					} else if (age < 25 || age > 60)
+						tree.put(m.getKey(), -200);
+				} else {
+					tree.put(m.getKey(), -100);
+				}
+			}
+		}
+		for (Entry<Integer, Integer> ent : tree.entrySet()) {
+			System.out.println(ent.getKey() + "\n" + ent.getValue());
+		}
+		return tree;
+	}
+}
