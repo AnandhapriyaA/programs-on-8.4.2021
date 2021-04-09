@@ -1,0 +1,44 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.Scanner;
+public class mains extends UserMainCode {
+	public static void main(String[] args) throws ParseException {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("enter length");
+		int len = scan.nextInt();
+		System.out.println("enter hashmap");
+		HashMap<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < len; i++) {
+			int rollno = scan.nextInt();
+			int mark = scan.nextInt();
+			map.put(rollno, mark);
+		}
+		calculateGrade(map);
+		scan.close();
+	}
+}
+public class UserMainCode {
+	static TreeMap<Integer, String> calculateGrade(HashMap<Integer, Integer> map) {
+		TreeMap<Integer, String> tree = new TreeMap<>();
+		for (Entry<Integer, Integer> n : map.entrySet()) {
+			if (n.getValue() >= 80)
+				tree.put(n.getKey(), "GOLD");
+			else if (n.getValue() < 80 && n.getValue() >= 60)
+				tree.put(n.getKey(), "SILVER");
+			else if (n.getValue() < 60 && n.getValue() >= 45)
+				tree.put(n.getKey(), "BRONZE");
+			else
+				tree.put(n.getKey(), "FAIL");
+		}
+
+		for (Entry<Integer, String> ent : tree.entrySet()) {
+			System.out.println(ent.getKey() + "\n" + ent.getValue());
+		}
+		return tree;
+	}
+}
